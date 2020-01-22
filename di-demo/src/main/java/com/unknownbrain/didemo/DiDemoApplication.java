@@ -16,11 +16,10 @@ public class DiDemoApplication {
 
         //We can get a bean by asking the application context;
         MyController myController = (MyController) context.getBean("myController");
-        myController.hello();
 
+        System.out.println(myController.hello());
         System.out.println(context.getBean(PropertyInjectedController.class).sayHello());
         System.out.println(context.getBean(SetterInjectedController.class).sayHello());
         System.out.println(context.getBean(ConstructorInjectedController.class).sayHello());
     }
-
 }
