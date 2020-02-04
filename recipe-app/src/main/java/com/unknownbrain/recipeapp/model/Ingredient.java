@@ -13,7 +13,7 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
 
-    @ManyToMany
+    @ManyToOne
     private Recipe recipe;
 
     @OneToOne(fetch = FetchType.EAGER)
