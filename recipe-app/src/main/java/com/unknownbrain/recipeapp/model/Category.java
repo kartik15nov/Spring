@@ -1,6 +1,8 @@
 package com.unknownbrain.recipeapp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,7 +15,7 @@ public class Category {
     private String description;
 
     @ManyToMany(mappedBy = "categories")
-    private Set<Recipe> recipes;
+    private List<Recipe> recipes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -31,11 +33,11 @@ public class Category {
         this.description = description;
     }
 
-    public Set<Recipe> getRecipes() {
+    public List<Recipe> getRecipes() {
         return recipes;
     }
 
-    public void setRecipes(Set<Recipe> recipes) {
+    public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
 }
