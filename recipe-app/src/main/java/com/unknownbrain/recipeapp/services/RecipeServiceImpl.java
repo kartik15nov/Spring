@@ -2,11 +2,13 @@ package com.unknownbrain.recipeapp.services;
 
 import com.unknownbrain.recipeapp.model.Recipe;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
@@ -17,6 +19,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<Recipe> getRecipes() {
+        log.debug("I am in the Service!");
+        
         List<Recipe> recipes = new ArrayList<>();
         recipeRepository.findAll().forEach(recipes::add);
         return recipes;
