@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -20,9 +21,16 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<Recipe> getRecipes() {
         log.debug("I am in the Service!");
-        
+
         List<Recipe> recipes = new ArrayList<>();
         recipeRepository.findAll().forEach(recipes::add);
         return recipes;
+    }
+
+    @Override
+    public Recipe findById(Long id) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+
+        return recipeOptional.orElse(null);
     }
 }
