@@ -3,6 +3,7 @@ package com.unknownbrain.recipeapp.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure uom;
 
-    @ManyToOne
+    @ManyToOne @ToString.Exclude
     private Recipe recipe;
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
