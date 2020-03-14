@@ -1,5 +1,7 @@
 package com.unknownbrain.recipeapp.services;
 
+import com.unknownbrain.recipeapp.converters.fromCommand.RecipeCommandToRecipe;
+import com.unknownbrain.recipeapp.converters.toCommand.RecipeToRecipeCommand;
 import com.unknownbrain.recipeapp.model.Recipe;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,11 +24,17 @@ class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test

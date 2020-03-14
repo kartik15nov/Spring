@@ -1,6 +1,7 @@
 package com.unknownbrain.recipeapp.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -49,7 +50,9 @@ public class Recipe {
     }
 
     public void setNotes(Notes notes) {
-        notes.setRecipe(this);
-        this.notes = notes;
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
     }
 }
