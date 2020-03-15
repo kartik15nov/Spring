@@ -91,4 +91,13 @@ class RecipeServiceImplTest {
         //Hence if we change the times to 2, then below code will fail since findAll() method never called twice.
         verify(recipeRepository, times(1)).findAll();
     }
+
+    @Test
+    void testDeleteById() {
+        Long idToDelete = 2L;
+
+        recipeService.deleteById(idToDelete);
+
+        verify(recipeRepository).deleteById(anyLong());
+    }
 }
