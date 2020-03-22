@@ -6,6 +6,7 @@ import com.unknownbrain.recipeapp.converters.toCommand.IngredientToIngredientCom
 import com.unknownbrain.recipeapp.converters.toCommand.UnitOfMeasureToUnitOfMeasureCommand;
 import com.unknownbrain.recipeapp.model.Ingredient;
 import com.unknownbrain.recipeapp.model.Recipe;
+import com.unknownbrain.recipeapp.model.UnitOfMeasure;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import com.unknownbrain.recipeapp.repositories.UnitOfMeasureRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -80,6 +82,11 @@ class IngredientServiceImplTest {
 
         Ingredient ingredient = new Ingredient();
         ingredient.setId(12L);
+        ingredient.setDescription(" hellow");
+        ingredient.setAmount(new BigDecimal(1000));
+        UnitOfMeasure uom = new UnitOfMeasure();
+        uom.setId(34L);
+        ingredient.setUom(uom);
         recipe.addIngredient(ingredient);
 
         IngredientCommand ingredientCommand = ingredientToIngredientCommand.convert(ingredient);
