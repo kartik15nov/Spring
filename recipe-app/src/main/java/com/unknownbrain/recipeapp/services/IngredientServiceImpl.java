@@ -5,6 +5,7 @@ import com.unknownbrain.recipeapp.converters.fromCommand.IngredientCommandToIngr
 import com.unknownbrain.recipeapp.converters.toCommand.IngredientToIngredientCommand;
 import com.unknownbrain.recipeapp.model.Ingredient;
 import com.unknownbrain.recipeapp.model.Recipe;
+import com.unknownbrain.recipeapp.model.UnitOfMeasure;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import com.unknownbrain.recipeapp.repositories.UnitOfMeasureRepository;
 import lombok.extern.log4j.Log4j2;
@@ -50,30 +51,31 @@ public class IngredientServiceImpl implements IngredientService {
 
         Long recipeId = ingredientCommand.getRecipeId();
 
-        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(NullPointerException::new);
 
-        Recipe savedRecipe = null;
-        if (recipeOptional.isPresent()) {
-            Recipe recipe = recipeOptional.get();
-            recipe.getIngredients().stream()
-                    .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
-                    .findFirst()
-                    .ifPresent(ingredientFound -> {
-                        ingredientFound.setDescription(ingredientCommand.getDescription());
-                        ingredientFound.setAmount(ingredientCommand.getAmount());
-                        if (ingredientCommand.getUom() != null && ingredientCommand.getUom().getId() != null)
-                            ingredientFound.setUom(unitOfMeasureRepository
-                                    .findById(ingredientCommand.getUom().getId())
-                                    .orElse(null)); //todo address this
-                    });
-            savedRecipe = recipeRepository.save(recipe);
+        final int[] indexOfIngredient = {-1};
+        Ingredient ingredientFromRecipe = recipe.getIngredients()
+                .stream()
+                .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
+                .findFirst()
+                .orElseGet(() -> {
+                    Ingredient ingredient = ingredientCommandToIngredient.convert(ingredientCommand);
+                    assert ingredient != null;
+                    recipe.addIngredient(ingredient);
+                    indexOfIngredient[0] = recipe.getIngredients().indexOf(ingredient);
+                    return recipe.getIngredients().get(indexOfIngredient[0]);
+                });
+
+        ingredientFromRecipe.setDescription(ingredientCommand.getDescription());
+        ingredientFromRecipe.setAmount(ingredientCommand.getAmount());
+
+        if (ingredientCommand.getUom() != null && ingredientCommand.getUom().getId() != null) {
+            ingredientFromRecipe.setUom(unitOfMeasureRepository
+                    .findById(ingredientCommand.getUom().getId())
+                    .orElse(new UnitOfMeasure())); //TODO address this
         }
 
-        assert savedRecipe != null;
-        return ingredientToIngredientCommand.convert(
-                savedRecipe.getIngredients().stream()
-                        .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
-                        .findFirst().orElse(new Ingredient())
-        );
+        Recipe savedRecipe = recipeRepository.save(recipe);
+        return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().get(indexOfIngredient[0]));
     }
 }
