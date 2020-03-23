@@ -2,6 +2,8 @@ package com.unknownbrain.recipeapp.controller;
 
 import com.unknownbrain.recipeapp.commands.IngredientCommand;
 import com.unknownbrain.recipeapp.commands.RecipeCommand;
+import com.unknownbrain.recipeapp.model.Ingredient;
+import com.unknownbrain.recipeapp.model.Recipe;
 import com.unknownbrain.recipeapp.services.IngredientService;
 import com.unknownbrain.recipeapp.services.RecipeService;
 import com.unknownbrain.recipeapp.services.UnitOfMeasureService;
@@ -17,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -47,7 +50,7 @@ class IngredientControllerTest {
     }
 
     @Test
-    void testListIngredients() throws Exception {
+    void viewListOfIngredients() throws Exception {
 
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
@@ -64,7 +67,7 @@ class IngredientControllerTest {
     }
 
     @Test
-    void testViewIngredient() throws Exception {
+    void testViewIndividualIngredient() throws Exception {
         //given
         IngredientCommand ingredientCommand = new IngredientCommand();
 
@@ -137,5 +140,15 @@ class IngredientControllerTest {
                         .param("description", "Some String"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/1/ingredient/2/view"));
+    }
+
+    @Test
+    void deleteIngredient() throws Exception {
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/ingredient/2/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients"));
+        verify(ingredientService).deleteById(anyLong(), anyLong());
     }
 }

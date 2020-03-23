@@ -62,9 +62,9 @@ public class IngredientServiceImpl implements IngredientService {
                     Ingredient ingredient = ingredientCommandToIngredient.convert(ingredientCommand);
                     assert ingredient != null;
                     recipe.addIngredient(ingredient);
-                    indexOfIngredient[0] = recipe.getIngredients().indexOf(ingredient);
-                    return recipe.getIngredients().get(indexOfIngredient[0]);
+                    return ingredient;
                 });
+        indexOfIngredient[0] = recipe.getIngredients().indexOf(ingredientFromRecipe);
 
         ingredientFromRecipe.setDescription(ingredientCommand.getDescription());
         ingredientFromRecipe.setAmount(ingredientCommand.getAmount());
@@ -76,6 +76,22 @@ public class IngredientServiceImpl implements IngredientService {
         }
 
         Recipe savedRecipe = recipeRepository.save(recipe);
+
         return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().get(indexOfIngredient[0]));
+    }
+
+    @Override
+    public void deleteById(Long recipeId, Long ingredientId) {
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(NullPointerException::new);
+
+        recipe.getIngredients().stream().filter(ingredient -> ingredient.getId().equals(ingredientId))
+                .findFirst()
+                .ifPresent(ingredient -> {
+                    log.debug("Deleting ingredient :{} from recipe :{}", ingredient.getId(), recipeId);
+
+                    ingredient.setRecipe(null);
+                    recipe.getIngredients().remove(ingredient);
+                });
+        recipeRepository.save(recipe);
     }
 }
