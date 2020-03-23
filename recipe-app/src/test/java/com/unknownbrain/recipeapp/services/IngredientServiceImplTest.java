@@ -20,8 +20,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class IngredientServiceImplTest {
 
@@ -101,5 +100,31 @@ class IngredientServiceImplTest {
         assertEquals(12L, savedIngredientCommand.getId());
         assertEquals(10L, savedIngredientCommand.getRecipeId());
         verify(recipeRepository).save(any(Recipe.class));
+    }
+
+
+    @Test
+    void deleteById() {
+        //given
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        Ingredient ingredient2 = new Ingredient();
+        ingredient2.setId(2L);
+        recipe.addIngredient(ingredient2);
+
+        Ingredient ingredient3 = new Ingredient();
+        ingredient3.setId(3L);
+        recipe.addIngredient(ingredient3);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(Optional.of(recipe));
+
+        //when
+        ingredientService.deleteById(1L, 2L);
+
+        //then
+        assertEquals(1, recipe.getIngredients().size());
+        verify(recipeRepository, atLeastOnce()).findById(anyLong());
+        verify(recipeRepository, atLeastOnce()).save(any());
     }
 }
