@@ -19,6 +19,7 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+            <!--/*@thymesVar id="recipes" type="java.util.List"*/-->
             <!--/*@thymesVar id="ingredient" type="com.unknownbrain.recipeapp.commands.IngredientCommand"*/-->
             <form th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} "
                   method="post">
@@ -46,9 +47,9 @@
                                     <label>UOM:</label>
                                     <select class="form-control" name="uom.id">
                                         <option th:each="uomEach : ${uomList}"
-                                                th:value="${uomEach.id}"
                                                 th:selected="${uomEach.id.equals(ingredient.uom.id)}"
-                                                th:text="${uomEach.description}">Each
+                                                th:text="${uomEach.description}"
+                                                th:value="${uomEach.id}">Each
                                         </option>
                                     </select>
                                 </div>
