@@ -52,15 +52,20 @@ class RecipeControllerTest {
     }
 
     @Test
-    void getRecipeTestNotFound() throws Exception {
-        Recipe recipe = new Recipe();
-        recipe.setId(1L);
-
+    void getRecipeNotFound() throws Exception {
         when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/view"))
                 .andExpect(status().isNotFound())
                 .andExpect(view().name("404error"));
+    }
+
+    @Test
+    void getRecipeNotFoundNumberFormatException() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/asdf/view"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
     }
 
     @Test
