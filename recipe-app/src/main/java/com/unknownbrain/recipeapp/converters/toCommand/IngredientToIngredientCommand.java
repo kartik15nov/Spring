@@ -1,8 +1,8 @@
 package com.unknownbrain.recipeapp.converters.toCommand;
 
 import com.unknownbrain.recipeapp.commands.IngredientCommand;
-import com.unknownbrain.recipeapp.model.Ingredient;
-import com.unknownbrain.recipeapp.model.UnitOfMeasure;
+import com.unknownbrain.recipeapp.models.Ingredient;
+import com.unknownbrain.recipeapp.models.UnitOfMeasure;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.unknownbrain.recipeapp.commands;
 
-import com.unknownbrain.recipeapp.model.Difficulty;
+import com.unknownbrain.recipeapp.models.Difficulty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

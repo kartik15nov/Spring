@@ -1,4 +1,4 @@
-package com.unknownbrain.recipeapp.controller;
+package com.unknownbrain.recipeapp.controllers;
 
 import com.unknownbrain.recipeapp.commands.IngredientCommand;
 import com.unknownbrain.recipeapp.commands.RecipeCommand;

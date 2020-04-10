@@ -3,7 +3,8 @@ package com.unknownbrain.recipeapp.services;
 import com.unknownbrain.recipeapp.commands.RecipeCommand;
 import com.unknownbrain.recipeapp.converters.fromCommand.RecipeCommandToRecipe;
 import com.unknownbrain.recipeapp.converters.toCommand.RecipeToRecipeCommand;
-import com.unknownbrain.recipeapp.model.Recipe;
+import com.unknownbrain.recipeapp.exceptions.NotFoundException;
+import com.unknownbrain.recipeapp.models.Recipe;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
@@ -52,6 +52,18 @@ class RecipeServiceImplTest {
         assertNotNull(recipeReturned);
         verify(recipeRepository).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    void getRecipeByIdTestNotFound() {
+        NotFoundException exception=assertThrows(NotFoundException.class,() -> {
+            Optional<Recipe> recipeOptional = Optional.empty();
+
+            when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+            Recipe recipeReturned = recipeService.findById(1L);
+        });
+
     }
 
     @Test

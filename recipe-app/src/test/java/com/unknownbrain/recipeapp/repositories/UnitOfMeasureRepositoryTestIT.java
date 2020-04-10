@@ -1,6 +1,6 @@
 package com.unknownbrain.recipeapp.repositories;
 
-import com.unknownbrain.recipeapp.model.UnitOfMeasure;
+import com.unknownbrain.recipeapp.models.UnitOfMeasure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,8 @@ package com.unknownbrain.recipeapp.services;
 import com.unknownbrain.recipeapp.commands.RecipeCommand;
 import com.unknownbrain.recipeapp.converters.fromCommand.RecipeCommandToRecipe;
 import com.unknownbrain.recipeapp.converters.toCommand.RecipeToRecipeCommand;
-import com.unknownbrain.recipeapp.model.Recipe;
+import com.unknownbrain.recipeapp.exceptions.NotFoundException;
+import com.unknownbrain.recipeapp.models.Recipe;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long id) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
-        return recipeOptional.orElse(null);
+        return recipeOptional.orElseThrow(() -> new NotFoundException("Recipe Not Found!"));
     }
 
     @Override

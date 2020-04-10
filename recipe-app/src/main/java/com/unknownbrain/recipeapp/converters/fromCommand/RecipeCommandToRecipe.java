@@ -2,7 +2,7 @@ package com.unknownbrain.recipeapp.converters.fromCommand;
 
 import com.unknownbrain.recipeapp.commands.NotesCommand;
 import com.unknownbrain.recipeapp.commands.RecipeCommand;
-import com.unknownbrain.recipeapp.model.Recipe;
+import com.unknownbrain.recipeapp.models.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
