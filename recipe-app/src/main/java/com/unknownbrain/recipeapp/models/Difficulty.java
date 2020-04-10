@@ -1,4 +1,4 @@
-package com.unknownbrain.recipeapp.model;
+package com.unknownbrain.recipeapp.models;
 
 public enum Difficulty {
     EASY,

@@ -1,7 +1,7 @@
 package com.unknownbrain.recipeapp.converters.toCommand;
 
 import com.unknownbrain.recipeapp.commands.NotesCommand;
-import com.unknownbrain.recipeapp.model.Notes;
+import com.unknownbrain.recipeapp.models.Notes;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

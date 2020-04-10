@@ -1,6 +1,6 @@
 package com.unknownbrain.recipeapp.bootstrap;
 
-import com.unknownbrain.recipeapp.model.*;
+import com.unknownbrain.recipeapp.models.*;
 import com.unknownbrain.recipeapp.repositories.CategoryRepository;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import com.unknownbrain.recipeapp.repositories.UnitOfMeasureRepository;

@@ -1,9 +1,9 @@
 package com.unknownbrain.recipeapp.converters.toCommand;
 
 import com.unknownbrain.recipeapp.commands.IngredientCommand;
-import com.unknownbrain.recipeapp.model.Ingredient;
-import com.unknownbrain.recipeapp.model.Recipe;
-import com.unknownbrain.recipeapp.model.UnitOfMeasure;
+import com.unknownbrain.recipeapp.models.Ingredient;
+import com.unknownbrain.recipeapp.models.Recipe;
+import com.unknownbrain.recipeapp.models.UnitOfMeasure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package com.unknownbrain.recipeapp.converters.toCommand;
 
 import com.unknownbrain.recipeapp.commands.CategoryCommand;
-import com.unknownbrain.recipeapp.model.Category;
+import com.unknownbrain.recipeapp.models.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

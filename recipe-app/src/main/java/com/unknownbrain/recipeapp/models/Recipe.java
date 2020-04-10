@@ -1,9 +1,7 @@
-package com.unknownbrain.recipeapp.model;
+package com.unknownbrain.recipeapp.models;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;

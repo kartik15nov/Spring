@@ -1,6 +1,6 @@
 package com.unknownbrain.recipeapp.repositories;
 
-import com.unknownbrain.recipeapp.model.UnitOfMeasure;
+import com.unknownbrain.recipeapp.models.UnitOfMeasure;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

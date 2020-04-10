@@ -1,7 +1,8 @@
-package com.unknownbrain.recipeapp.controller;
+package com.unknownbrain.recipeapp.controllers;
 
 import com.unknownbrain.recipeapp.commands.RecipeCommand;
-import com.unknownbrain.recipeapp.model.Recipe;
+import com.unknownbrain.recipeapp.exceptions.NotFoundException;
+import com.unknownbrain.recipeapp.models.Recipe;
 import com.unknownbrain.recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,17 @@ class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/view"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    void getRecipeTestNotFound() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/view"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
