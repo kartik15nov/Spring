@@ -50,7 +50,7 @@ public class RecipeController {
     public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.getDefaultMessage()));
+            bindingResult.getAllErrors().forEach(log::debug);
 
             return RECIPE_RECIPEFORM_URL;
         }
