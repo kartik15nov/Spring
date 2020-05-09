@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.unknownbrain</groupId>
-    <artifactId>recipe-app</artifactId>
+    <artifactId>ub-recipe-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>recipe-app</name>
-    <description>Recipe Application</description>
+    <name>ub-recipe-app</name>
+    <description>Unknown Brain Recipe Application</description>
 
     <properties>
         <java.version>1.8</java.version>
