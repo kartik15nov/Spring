@@ -1,0 +1,29 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: jdbc:mysql://localhost:3306/ub_dev
+    username: ub_dev_user
+    password: ub123
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: true
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: ub_database_create.sql
+logging:
+  level:
+    com.unknownbrain.recipeapp: debug
+server:
+  error:
+    whitelabel:
+      enabled: true
