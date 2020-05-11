@@ -1,0 +1,11 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+logging:
+  level:
+    com.unknownbrain.recipeapp: debug
+server:
+  error:
+    whitelabel:
+      enabled: true
