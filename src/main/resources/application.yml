@@ -2,6 +2,11 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+  datasource:
+    platform: h2
+  jpa:
+    show-sql: true
+
 logging:
   level:
     com.unknownbrain.recipeapp: debug
