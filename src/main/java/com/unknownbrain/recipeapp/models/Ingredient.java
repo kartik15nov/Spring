@@ -22,7 +22,7 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure uom;
 
-    @ManyToOne @ToString.Exclude
+    @ManyToOne
     private Recipe recipe;
 
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {

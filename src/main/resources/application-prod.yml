@@ -6,6 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/ub_prod
     username: ub_prod_user
     password: ub123
+    platform: mysql
   jpa:
     hibernate:
       ddl-auto: validate

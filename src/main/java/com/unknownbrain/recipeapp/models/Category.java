@@ -1,14 +1,15 @@
 package com.unknownbrain.recipeapp.models;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipes"})
 @Entity
 public class Category {
@@ -19,7 +20,7 @@ public class Category {
 
     private String description;
 
-    @ManyToMany(mappedBy = "categories") @ToString.Exclude
+    @ManyToMany(mappedBy = "categories")
     private List<Recipe> recipes = new ArrayList<>();
 
 }

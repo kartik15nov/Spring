@@ -4,9 +4,9 @@ import com.unknownbrain.recipeapp.models.*;
 import com.unknownbrain.recipeapp.repositories.CategoryRepository;
 import com.unknownbrain.recipeapp.repositories.RecipeRepository;
 import com.unknownbrain.recipeapp.repositories.UnitOfMeasureRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +17,19 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Log4j2
-@RequiredArgsConstructor
 @Component
+@Profile("default")
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+
+    public RecipeBootstrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+        this.categoryRepository = categoryRepository;
+        this.recipeRepository = recipeRepository;
+        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -42,8 +48,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.setPrepTime(10);
         guacamoleRecipe.setCookTime(50);
         guacamoleRecipe.setDifficulty(Difficulty.EASY);
-        guacamoleRecipe.getCategories().add(getCategory("American"));
-        guacamoleRecipe.getCategories().add(getCategory("Mexican"));
+
         guacamoleRecipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), getUOM("Each")));
         guacamoleRecipe.addIngredient(new Ingredient("Kosher salt", new BigDecimal(".5"), getUOM("Teaspoon")));
         guacamoleRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), getUOM("TableSpoon")));
@@ -52,6 +57,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.addIngredient(new Ingredient("Cilantro", new BigDecimal(2), getUOM("TableSpoon")));
         guacamoleRecipe.addIngredient(new Ingredient("freshly grated black pepper", new BigDecimal(2), getUOM("Dash")));
         guacamoleRecipe.addIngredient(new Ingredient("ripe tomato, seeds and pulp removed, chopped", new BigDecimal(".5"), getUOM("Each")));
+
+        guacamoleRecipe.getCategories().add(getCategory("American"));
+        guacamoleRecipe.getCategories().add(getCategory("Mexican"));
+
         guacamoleRecipe.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
@@ -73,6 +82,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
         guacamoleRecipe.setNotes(guacamoleNotes);
+        recipes.add(guacamoleRecipe);
 
 
         // Prepare the Tacos recipe
@@ -80,8 +90,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
-        tacosRecipe.getCategories().add(getCategory("American"));
-        tacosRecipe.getCategories().add(getCategory("Mexican"));
+
         tacosRecipe.addIngredient(new Ingredient("Ancho Chili Powder", new BigDecimal(2), getUOM("TableSpoon")));
         tacosRecipe.addIngredient(new Ingredient("Dried Oregano", new BigDecimal(1), getUOM("Teaspoon")));
         tacosRecipe.addIngredient(new Ingredient("Dried Cumin", new BigDecimal(1), getUOM("Teaspoon")));
@@ -101,6 +110,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.addIngredient(new Ingredient("Roughly chopped cilantro", new BigDecimal(4), getUOM("Each")));
         tacosRecipe.addIngredient(new Ingredient("Cup sour cream thinned with 1/4 Cup milk", new BigDecimal(4), getUOM("Cup")));
         tacosRecipe.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(4), getUOM("Each")));
+
+        tacosRecipe.getCategories().add(getCategory("American"));
+        tacosRecipe.getCategories().add(getCategory("Mexican"));
+
         tacosRecipe.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
                 "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
                 "Set aside to marinate while the grill heats and you prepare the rest of the toppings.\n" +
@@ -124,10 +137,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
         tacosRecipe.setNotes(tacoNotes);
-
-        // Add the recipes into the list
-        recipes.add(guacamoleRecipe);
         recipes.add(tacosRecipe);
+
         return recipes;
     }
 
