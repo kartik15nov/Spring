@@ -1,12 +1,11 @@
 package com.unknownbrain.recipeapp.models;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes {
@@ -15,7 +14,7 @@ public class Notes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne @ToString.Exclude
+    @OneToOne
     private Recipe recipe;
 
     @Lob
